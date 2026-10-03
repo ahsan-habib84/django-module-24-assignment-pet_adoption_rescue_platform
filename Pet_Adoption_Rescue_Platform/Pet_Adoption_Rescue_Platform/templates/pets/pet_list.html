@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Pets{% endblock %}
+{% block content %}
+<div class="container py-4">
+<h1>Available Pets & Rescue Listings</h1>
+<form class="card card-body mb-4" method="get">
+ <div class="row g-2">
+  <div class="col-md-3"><input name="search" value="{{ request.GET.search }}" class="form-control" placeholder="Pet name"></div>
+  <div class="col-md-2"><select name="animal_type" class="form-select"><option value="">Animal type</option>{% for value,label in animal_types %}<option value="{{ value }}" {% if request.GET.animal_type == value %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></div>
+  <div class="col-md-2"><input name="breed" value="{{ request.GET.breed }}" class="form-control" placeholder="Breed"></div>
+  <div class="col-md-2"><select name="gender" class="form-select"><option value="">Gender</option>{% for value,label in genders %}<option value="{{ value }}" {% if request.GET.gender == value %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></div>
+  <div class="col-md-2"><input name="location" value="{{ request.GET.location }}" class="form-control" placeholder="Location"></div>
+  <div class="col-md-1"><button class="btn btn-primary w-100">Go</button></div>
+ </div>
+</form>
+<div class="row g-4">
+{% for pet in pets %}
+ <div class="col-md-4">
+  <div class="card pet-card">
+   {% if pet.image %}<img src="{{ pet.image.url }}" class="card-img-top pet-image">{% else %}<div class="placeholder-image">🐾</div>{% endif %}
+   <div class="card-body">
+    <h5>{{ pet.name }}</h5><p>{{ pet.animal_type }} · {{ pet.breed }} · {{ pet.age }} years · {{ pet.gender }}</p>
+    <p>{{ pet.location }} · <span class="badge {% if pet.status == 'Available' %}bg-success{% else %}bg-secondary{% endif %}">{{ pet.status }}</span></p>
+    <a href="{% url 'pet_detail' pet.pk %}" class="btn btn-primary">Details</a>
+   </div>
+  </div>
+ </div>
+{% empty %}<p>No matching pets found.</p>{% endfor %}
+</div>
+</div>
+{% endblock %}

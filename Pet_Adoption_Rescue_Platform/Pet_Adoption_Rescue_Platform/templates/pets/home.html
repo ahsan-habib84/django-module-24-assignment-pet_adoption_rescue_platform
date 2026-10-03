@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Home | Pet Rescue{% endblock %}
+{% block content %}
+<section class="hero">
+ <div class="container">
+  <h1 class="display-5 fw-bold">Find a Friend, Give a Home 🐾</h1>
+  <p class="lead">Browse pets available for adoption and submit an adoption request.</p>
+  <a href="{% url 'pet_list' %}" class="btn btn-primary btn-lg">Browse Pets</a>
+ </div>
+</section>
+<div class="container py-5">
+ <div class="d-flex justify-content-between mb-3"><h2>Available Pets</h2><a href="{% url 'pet_list' %}">View all</a></div>
+ <div class="row g-4">
+  {% for pet in pets %}
+  <div class="col-md-4">
+   <div class="card pet-card">
+    {% if pet.image %}<img src="{{ pet.image.url }}" class="card-img-top pet-image">{% else %}<div class="placeholder-image">🐕</div>{% endif %}
+    <div class="card-body">
+      <h5>{{ pet.name }}</h5><p>{{ pet.animal_type }} · {{ pet.breed }} · {{ pet.age }} years</p>
+      <a class="btn btn-outline-primary" href="{% url 'pet_detail' pet.pk %}">View Details</a>
+    </div>
+   </div>
+  </div>
+  {% empty %}<p>No pets available yet.</p>{% endfor %}
+ </div>
+</div>
+{% endblock %}

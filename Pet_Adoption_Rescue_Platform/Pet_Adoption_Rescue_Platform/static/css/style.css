@@ -1,0 +1,8 @@
+body { background: #f7f9fc; }
+.navbar-brand { font-weight: 700; }
+.hero { padding: 70px 0; background: linear-gradient(135deg,#e8f5e9,#e3f2fd); }
+.pet-card { transition: .2s; height: 100%; }
+.pet-card:hover { transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,.08); }
+.pet-image { height: 220px; object-fit: cover; }
+.placeholder-image { height: 220px; display:flex; align-items:center; justify-content:center; background:#e9ecef; font-size:50px; }
+footer { margin-top: 60px; }
